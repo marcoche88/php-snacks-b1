@@ -15,11 +15,25 @@ if (!empty($_GET['name']) && !empty($_GET['mail']) && !empty($_GET['age'])) {
     die();
 }
 
-if (strlen($name) < 4 || !strpos($mail, '.') || !strpos($mail, '@') || !is_numeric($age)) {
-    $text = "Accesso negato";
-} else {
+$text = "";
+
+if (strlen($name) > 3 && strpos($mail, '.') && strpos($mail, '@') && is_numeric($age)) {
     $text = "Accesso riuscito";
+} else {
+    if (strlen($name) < 4) {
+        $text .= "Accesso negato: nome non valido <br>";
+    }
+
+    if (!strpos($mail, '.') || !strpos($mail, '@')) {
+        $text .= "Accesso negato: mail non valida <br>";
+    }
+
+    if (!is_numeric($age)) {
+        $text .= "Accesso negato: età non valida <br>";
+    }
 }
+
+
 
 ?>
 
